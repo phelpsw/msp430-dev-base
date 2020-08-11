@@ -1,0 +1,4 @@
+:cmock:
+  :treat_externs: :include
+  :mock_path: test/
+  :mock_prefix: mock_

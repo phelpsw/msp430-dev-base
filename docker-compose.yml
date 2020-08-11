@@ -1,0 +1,6 @@
+version: '3'
+services:
+  dev:
+    image: "phelpsw/msp430-build:latest"
+    devices:
+      - '/dev/ttyACM0'

@@ -1,0 +1,23 @@
+[binaries]
+c = 'msp430-elf-gcc'
+ar = 'msp430-elf-ar'
+ld = 'msp430-elf-ld'
+
+[properties]
+c_args = [
+	'-fshort-enums',
+	'-ffunction-sections',
+	'-Wall',
+	'-Werror',
+	]
+
+c_link_args = [
+	'-Wl,--gc-sections',
+	]
+
+
+[host_machine]
+system = 'bare'
+cpu_family = 'msp430'
+cpu = 'msp430x'
+endian = 'none'

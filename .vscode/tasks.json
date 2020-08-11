@@ -1,0 +1,102 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "configure_release",
+            "type": "shell",
+            "command": "meson",
+            "args": [
+                "--cross-file",
+                "msp430.txt",
+                "release"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "build_release",
+            "type": "shell",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "command": "ninja",
+            "args": [
+                "-C",
+                "release",
+            ],
+            "dependsOrder": "sequence",
+            "dependsOn": ["configure_release"],
+            "problemMatcher": []
+        },
+        {
+            "label": "flash_release",
+            "type": "shell",
+            "command": "ninja",
+            "args": [
+                "-C",
+                "release",
+                "flash_blink.elf"
+            ],
+            "dependsOrder": "sequence",
+            "dependsOn": ["build_release"],
+            "problemMatcher": []
+        },
+        {
+            "label": "configure_test",
+            "type": "shell",
+            "command": "meson",
+            "args": [
+                "testing"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "test",
+            "type": "shell",
+            "command": "ninja",
+            "args": [
+                "-C",
+                "testing",
+                "test"
+            ],
+            "dependsOrder": "sequence",
+            "dependsOn": ["configure_test"],
+            "problemMatcher": []
+        },
+        {
+            "label": "clean",
+            "type": "shell",
+            "command": "rm -Rf release testing",
+            "problemMatcher": []
+        },
+        {
+            "label": "attach_debug",
+            "type": "shell",
+            "command": "mspdebug",
+            "args": [
+                "tilib",
+                "\"gdb\""
+            ],
+            "isBackground": true,
+            "problemMatcher": [
+                {
+                  "pattern": [
+                    {
+                      "regexp": ".",
+                      "file": 1,
+                      "location": 2,
+                      "message": 3
+                    }
+                  ],
+                  "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": ".",
+                    "endsPattern": ".",
+                  }
+                }
+            ]
+        }
+    ]
+}

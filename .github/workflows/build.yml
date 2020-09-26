@@ -48,4 +48,4 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: flash_blink
-          path: release/flash_blink.elf
+          path: release/src/blink.elf
